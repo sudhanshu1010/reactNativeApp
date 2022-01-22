@@ -1,13 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import Login from './components/src/Login';
+import Signup from './components/src/Signup.js';
+import Dashboard from './components/src/Dashboard'
 
 export default function App() {
-  return (
+  const [user, setUser] = useState(true);
+
+  const childToParent = (childData) => {
+    setUser(childData);
+  };
+
+  return user ? (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Login childToParent={childToParent} />
     </View>
-  );
+  ) :
+    (<View style={styles.container}>
+      <Signup childToParent={childToParent} />
+    </View>)
+    ;
+
 }
 
 const styles = StyleSheet.create({
